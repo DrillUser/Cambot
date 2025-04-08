@@ -7,11 +7,15 @@ import subprocess
 from threading import Thread
 import routeros_api
 
-# Настройка логирования
+# --- Настройка логирования ---
+# Указываем путь к файлу логов
 log_filename = 'logs/camera_monitor.log'
+
+# Создаем папку для логов, если она не существует
 if not os.path.exists('logs'):
     os.makedirs('logs')
 
+# Настраиваем ротацию логов (ежедневно, храним до 7 файлов)
 from logging.handlers import TimedRotatingFileHandler
 handler = TimedRotatingFileHandler(
     log_filename, when='midnight', interval=1, backupCount=7)
@@ -20,31 +24,37 @@ handler.setFormatter(logging.Formatter(
     '%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     datefmt='%Y-%m-%d %H:%M:%S'
 ))
+
+# Создаем объект логгера
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 logger.addHandler(handler)
 
-# Загрузка настроек из переменных окружения
+# --- Загрузка настроек из переменных окружения ---
+# Получаем токен Telegram, ID чата и данные для подключения к Mikrotik
 telegram_token = os.getenv('TELEGRAM_TOKEN', '')
 chat_id = os.getenv('CHAT_ID', '')
 mikrotik_host = os.getenv('MIKROTIK_HOST', '192.168.200.1')
 mikrotik_user = os.getenv('MIKROTIK_USER', 'admin')
 mikrotik_password = os.getenv('MIKROTIK_PASSWORD', 'your_mikrotik_password')
 
-# Инициализация бота Telegram
+# --- Инициализация Telegram-бота ---
 bot = telebot.TeleBot(telegram_token)
 
-# Загрузка данных камер из файла audmac.txt
+# --- Загрузка данных камер ---
+# Читаем файл audmac.txt, содержащий информацию о камерах
 # Формат строки: номер аудитории  MAC-адрес  формат запроса
 cameras = {}
 try:
     with open('audmac.txt', 'r', encoding='utf-8') as file:
         for line in file:
+            # Разделяем строку на три части: номер аудитории, MAC-адрес и формат запроса
             parts = line.strip().split(maxsplit=2)
             if len(parts) < 3:
                 logger.warning(f"Неправильный формат строки: {line.strip()}")
                 continue
             room, mac, req_format = parts
+            # Сохраняем данные камеры в словарь
             cameras[room] = {
                 'room': room,
                 'mac': mac,
@@ -54,26 +64,33 @@ try:
 except FileNotFoundError as e:
     logger.error(f'Ошибка при чтении файла audmac.txt: {e}')
 
+# --- Глобальные переменные ---
 # Флаг для управления мониторингом
 monitoring_active = False
 monitoring_thread = None
 
 # --- Кэш ARP ---
+# Кэш для хранения соответствия MAC-адресов и IP-адресов
 arp_cache = {}              # Формат: {mac: ip}
-arp_cache_last_update = 0   # Timestamp последнего обновления
-arp_cache_update_interval = 86400  # 24 часа
+arp_cache_last_update = 0   # Время последнего обновления кэша
+arp_cache_update_interval = 86400  # Интервал обновления кэша (24 часа)
 
+# --- Функции для работы с Mikrotik ---
 def get_arp_table_from_mikrotik(host, username, password, port=8728):
     """
     Получает ARP-таблицу с Mikrotik через API.
+    Возвращает список записей в формате [{"ip": "IP-адрес", "mac": "MAC-адрес"}].
     """
     try:
+        # Устанавливаем соединение с Mikrotik
         connection = routeros_api.RouterOsApiPool(
             host, username=username, password=password, port=port, plaintext_login=True)
         api = connection.get_api()
+        # Получаем ресурс ARP-таблицы
         arp_resource = api.get_resource('/ip/arp')
         arp_entries = arp_resource.get()
         entries = []
+        # Обрабатываем записи ARP-таблицы
         for entry in arp_entries:
             ip = entry.get('address')
             mac = entry.get('mac-address').lower() if entry.get('mac-address') else None
@@ -94,9 +111,8 @@ def update_arp_cache():
     logger.debug("Обновление ARP кэша через Mikrotik API...")
     arp_entries = get_arp_table_from_mikrotik(mikrotik_host, mikrotik_user, mikrotik_password)
     if arp_entries:
-        new_cache = {}
-        for entry in arp_entries:
-            new_cache[entry['mac']] = entry['ip']
+        # Обновляем кэш с новыми данными
+        new_cache = {entry['mac']: entry['ip'] for entry in arp_entries}
         arp_cache = new_cache
         arp_cache_last_update = time.time()
         logger.info("ARP кэш успешно обновлён через Mikrotik.")
@@ -105,6 +121,7 @@ def update_arp_cache():
         logger.error("Не удалось обновить ARP кэш через Mikrotik.")
         return False
 
+# --- Функции для работы с камерами ---
 def get_ip_from_mac_cached(mac_address):
     """
     Возвращает IP-адрес для заданного MAC из кэша.
@@ -112,9 +129,11 @@ def get_ip_from_mac_cached(mac_address):
     """
     global arp_cache, arp_cache_last_update
     mac_colon = mac_address.replace('-', ':').lower()
+    # Проверяем, нужно ли обновить кэш
     if not arp_cache or (time.time() - arp_cache_last_update > arp_cache_update_interval):
         logger.debug("ARP кэш пуст или устарел, обновляем его...")
         update_arp_cache()
+    # Ищем IP-адрес в кэше
     ip = arp_cache.get(mac_colon)
     if ip:
         logger.debug(f"Найден IP {ip} для MAC {mac_address} в кэше ARP")
@@ -131,6 +150,7 @@ def get_camera_url(camera_info):
     if not ip:
         logger.error(f"Не удалось определить IP для камеры {camera_info['description']} с MAC {mac}")
         return None
+    # Формируем URL камеры
     full_url = camera_info['req_format'] + ip
     logger.debug(f"Определённый URL для камеры {camera_info['description']}: {full_url}")
     return full_url
