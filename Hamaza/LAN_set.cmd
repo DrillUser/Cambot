@@ -7,20 +7,20 @@ Set IPaddr=0
 Set gw=0
 set MAC=00-00-00-00-00-00
 set addr_type=Dynamic
-set Ugly_words=Обращайтесь к Вашему системному администратору.
-set Unsupported=Скрипт не поддерживает данную операционную систему.
-set MakeSettings=Подождите производится настройка ...
+set Ugly_words=┼╜┬б├а┬а├й┬а┬й├в┬е├б├м ┬к тАЪ┬а├и┬е┬м├г ├б┬и├б├в┬е┬м┬н┬о┬м├г ┬а┬д┬м┬и┬н┬и├б├в├а┬а├в┬о├а├г.
+set Unsupported=тАШ┬к├а┬и┬п├в ┬н┬е ┬п┬о┬д┬д┬е├а┬ж┬и┬в┬а┬е├в ┬д┬а┬н┬н├г├о ┬о┬п┬е├а┬а├ж┬и┬о┬н┬н├г├о ├б┬и├б├в┬е┬м├г.
+set MakeSettings=┬П┬о┬д┬о┬ж┬д┬и├в┬е ┬п├а┬о┬и┬з┬в┬о┬д┬и├в├б├п ┬н┬а├б├в├а┬о┬й┬к┬а ...
 
 echo.
 
-echo Имя компьютера:		%computername% 
-echo Имя пользователя:	%USERNAME%
+echo ╦Ж┬м├п ┬к┬о┬м┬п├м├о├в┬е├а┬а:		%computername% 
+echo ╦Ж┬м├п ┬п┬о┬л├м┬з┬о┬в┬а├в┬е┬л├п:	%USERNAME%
 
 
 
 
 if /I NOT %USERDOMAIN%==%COMPUTERNAME% set Dom=%USERDOMAIN%
-echo Домен:			%Dom%				
+echo тАЮ┬о┬м┬е┬н:			%Dom%				
 
 if "%COMPUTERNAME%"=="TS1" goto quit
 if "%COMPUTERNAME%"=="TS2" goto quit
@@ -28,33 +28,33 @@ if "%COMPUTERNAME%"=="TS3-parus" goto quit
 if "%COMPUTERNAME%"=="TS4" goto quit
 
 
-rem -----  ╬яЁхфхыхэшх юяхЁрЎшюээющ ёшёЄхь√
+rem -----  ├О├п├░├е├д├е├л├е├н├и├е ├о├п├е├░├а├╢├и├о├н├н├о├й ├▒├и├▒├▓├е├м├╗
 
 
 for /f "tokens=2 delims=[] usebackq" %%A in (`ver`) do ( 
 	@for /f "tokens=2 usebackq" %%a in (`@echo %%A`) do @set osver=%%a )
  
-if "%osver:~0,5%"=="5.00." (echo Операционная система:	Windows 2000 & goto w2000)
-if "%osver:~0,4%"=="5.1." (echo Операционная система:	Windows XP & goto xp)
-if "%osver:~0,4%"=="5.2." (echo Операционная система:	Windows 2003 or XP 64-bit & goto w2003) 
-if "%osver:~0,4%"=="6.0." (echo Операционная система:	Windows 2008 or Vista & goto w2008) 
-if "%osver:~0,4%"=="6.1." (echo Операционная система:	Windows 7 & goto w7)
-if "%osver:~0,4%"=="6.2." (echo Операционная система:	Windows 8 & goto w8)
-if "%osver:~0,4%"=="6.3." (echo Операционная система:	Windows 8.1 & goto w81) 
-if "%osver:~0,5%"=="10.0." (echo Операционная система:	Windows 10 & goto w10) else (echo Неизвестная система ! & goto quit)
+if "%osver:~0,5%"=="5.00." (echo ┼╜┬п┬е├а┬а├ж┬и┬о┬н┬н┬а├п ├б┬и├б├в┬е┬м┬а:	Windows 2000 & goto w2000)
+if "%osver:~0,4%"=="5.1." (echo ┼╜┬п┬е├а┬а├ж┬и┬о┬н┬н┬а├п ├б┬и├б├в┬е┬м┬а:	Windows XP & goto xp)
+if "%osver:~0,4%"=="5.2." (echo ┼╜┬п┬е├а┬а├ж┬и┬о┬н┬н┬а├п ├б┬и├б├в┬е┬м┬а:	Windows 2003 or XP 64-bit & goto w2003) 
+if "%osver:~0,4%"=="6.0." (echo ┼╜┬п┬е├а┬а├ж┬и┬о┬н┬н┬а├п ├б┬и├б├в┬е┬м┬а:	Windows 2008 or Vista & goto w2008) 
+if "%osver:~0,4%"=="6.1." (echo ┼╜┬п┬е├а┬а├ж┬и┬о┬н┬н┬а├п ├б┬и├б├в┬е┬м┬а:	Windows 7 & goto w7)
+if "%osver:~0,4%"=="6.2." (echo ┼╜┬п┬е├а┬а├ж┬и┬о┬н┬н┬а├п ├б┬и├б├в┬е┬м┬а:	Windows 8 & goto w8)
+if "%osver:~0,4%"=="6.3." (echo ┼╜┬п┬е├а┬а├ж┬и┬о┬н┬н┬а├п ├б┬и├б├в┬е┬м┬а:	Windows 8.1 & goto w81) 
+if "%osver:~0,5%"=="10.0." (echo ┼╜┬п┬е├а┬а├ж┬и┬о┬н┬н┬а├п ├б┬и├б├в┬е┬м┬а:	Windows 10 & goto w10) else (echo ┬Н┬е┬и┬з┬в┬е├б├в┬н┬а├п ├б┬и├б├в┬е┬м┬а ! & goto quit)
 
 :w2000
 set d1=2
-set a1="Да"
-set a2="Нет"
+set a1="тАЮ┬а"
+set a2="┬Н┬е├в"
 goto m0
 
 
 :xp
 :w2003
 set d1=3
-set a1="фр"
-set a2="эхЄ"
+set a1="├д├а"
+set a2="├н├е├▓"
 set net_str1=netsh interface ip set dns
 set net_str2=netsh interface ip add dns
 set a3=addr
@@ -66,15 +66,15 @@ goto m0
 :w81
 :w10
 set d1=3
-set a1="Да"
-set a2="Нет"
+set a1="тАЮ┬а"
+set a2="┬Н┬е├в"
 set net_str1=netsh interface ipv4 set dnsservers
 set net_str2=netsh interface ipv4 add dnsservers
 set a3=address
 :m0
 
 
-rem  ----- ╬яЁхфхыхэшх °ы■чр ш рфЁхёр ръЄштэюую шэЄхЁЇхщёр
+rem  ----- ├О├п├░├е├д├е├л├е├н├и├е ├╕├л├╛├з├а ├и ├а├д├░├е├▒├а ├а├к├▓├и├в├н├о├г├о ├и├н├▓├е├░├┤├е├й├▒├а
 
 for  /f "tokens=1-4 usebackq" %%A in (`route print 0.0.0.0`) do (
 	if "%%A%%B"=="0.0.0.00.0.0.0" (set gw=%%C & set IPaddr=%%D & goto m01))
@@ -83,11 +83,11 @@ set IPaddr=%IPaddr:~0,-1%
 set gw=%gw:~0,-1%
 
 if "%IPaddr%"=="" (
-	echo. & echo Программа не может обнаружить подключение к сети. & echo %Ugly_words% & goto quit)
-echo IP-адрес^:		%IPaddr% 
+	echo. & echo ┬П├а┬о┬г├а┬а┬м┬м┬а ┬н┬е ┬м┬о┬ж┬е├в ┬о┬б┬н┬а├а├г┬ж┬и├в├м ┬п┬о┬д┬к┬л├о├з┬е┬н┬и┬е ┬к ├б┬е├в┬и. & echo %Ugly_words% & goto quit)
+echo IP-┬а┬д├а┬е├б^:		%IPaddr% 
 
 
-rem  -----  ╬яЁхфхыхэшх  MAC-рфЁхёр ръЄштэюую шэЄхЁЇхщёр
+rem  -----  ├О├п├░├е├д├е├л├е├н├и├е  MAC-├а├д├░├е├▒├а ├а├к├▓├и├в├н├о├г├о ├и├н├▓├е├░├┤├е├й├▒├а
 
 echo. > %TEMP%\scr_inf.lan
 if "%osver:~0,2%"=="5." (ipconfig /all >> %TEMP%\scr_inf.lan ) else (
@@ -109,7 +109,7 @@ for /f "tokens=1-2 skip=%iii% delims=:" %%A in (%TEMP%\scr_inf.lan) do (
 :m21
 set MAC=%MAC:~0,-1%
 
-rem  -----  ╬яЁхфхыхэшх: рфЁхё ёЄрЄшўхёъшщ шыш фшэрьшўхёъшщ
+rem  -----  ├О├п├░├е├д├е├л├е├н├и├е: ├а├д├░├е├▒ ├▒├▓├а├▓├и├╖├е├▒├к├и├й ├и├л├и ├д├и├н├а├м├и├╖├е├▒├к├и├й
 
 set /A iii+=1
 for /f "tokens=1-2 skip=%iii% delims=:" %%A in (%TEMP%\scr_inf.lan) do (
@@ -117,12 +117,12 @@ for /f "tokens=1-2 skip=%iii% delims=:" %%A in (%TEMP%\scr_inf.lan) do (
 		(if "%%a"==%a2% (set addr_type=Static)) & goto m14)) 
 :m14
 
-echo Тип адреса:		%addr_type%		
-echo MAC-адрес:		%MAC%
+echo тАЩ┬и┬п ┬а┬д├а┬е├б┬а:		%addr_type%		
+echo MAC-┬а┬д├а┬е├б:		%MAC%
 
 del /Q %TEMP%\scr_inf.lan
 
-rem  ----- ╬яЁхфхыхэшх шьхэш ръЄштэюую шэЄхЁЇхщёр
+rem  ----- ├О├п├░├е├д├е├л├е├н├и├е ├и├м├е├н├и ├а├к├▓├и├в├н├о├г├о ├и├н├▓├е├░├┤├е├й├▒├а
 
 if "%osver:~0,5%"=="5.00." (echo. & echo %Unsupported% & echo %Ugly_words% & goto quit) 
 
@@ -131,36 +131,36 @@ for /f "tokens=1-3 usebackq delims=," %%A in (`getmac /v /NH /FO CSV`) do (
 	if %%C=="%MAC%" (set ifname=%%A & goto m2))
 :m2
 
-echo Активный адаптор:	%ifname%
+echo тВм┬к├в┬и┬в┬н├л┬й ┬а┬д┬а┬п├в┬о├а:	%ifname%
 echo.
 
-rem  ----- ─хщёЄтш 
+rem  ----- ├Д├е├й├▒├▓├в├и├┐
 
 if not %Dom%==local (
 	if not %Dom%==free.miit (
-		(echo Ваша машина находится в домене %Dom%,) & (
-		echo изменять её настройки может только IT персонал этого домена.) & (
+		(echo тАЪ┬а├и┬а ┬м┬а├и┬и┬н┬а ┬н┬а├е┬о┬д┬и├в├б├п ┬в ┬д┬о┬м┬е┬н┬е %Dom%,) & (
+		echo ┬и┬з┬м┬е┬н├п├в├м ┬е├▒ ┬н┬а├б├в├а┬о┬й┬к┬и ┬м┬о┬ж┬е├в ├в┬о┬л├м┬к┬о IT ┬п┬е├а├б┬о┬н┬а┬л ├н├в┬о┬г┬о ┬д┬о┬м┬е┬н┬а.) & (
 		echo %Ugly_words% & goto quit)))
 
 if %IPaddr:~0,7%==10.242. (
 	if not %IPaddr:~0,11%==10.242.120. (
-			(echo Ваш компьютер подключен к ЛВС МИИТ.) & (
+			(echo тАЪ┬а├и ┬к┬о┬м┬п├м├о├в┬е├а ┬п┬о┬д┬к┬л├о├з┬е┬н ┬к тА╣тАЪтАШ ┼Т╦Ж╦ЖтАЩ.) & (
 			 echo.) & (echo %MakeSettings%) & (
 			 %net_str1% %ifname% dhcp register=both > nul) & (goto m3)))
 			 
 
-echo Ваш компьютер подключен к обособленной сети подразделения,  
-echo которая отделена от общей сети ЛВС МИИТ посредством маршрутизатора, либо
-echo вообще не подключена к ЛВС МИИТ.
-echo Ситуация автоматически подразумевает, что в Вашем подразделении должен быть
-echo свой IT персонал. 
-echo Данная программа может сделать попытку  произвести необходимые настройки 
-echo самостоятельно, но при этом есть риск потерятьть какие-либо особенные для 
-echo Вашей сеть настройки. Поэтому рекомендуется обратиться к Вашим специалистам, 
-echo если таковые имеются.
+echo тАЪ┬а├и ┬к┬о┬м┬п├м├о├в┬е├а ┬п┬о┬д┬к┬л├о├з┬е┬н ┬к ┬о┬б┬о├б┬о┬б┬л┬е┬н┬н┬о┬й ├б┬е├в┬и ┬п┬о┬д├а┬а┬з┬д┬е┬л┬е┬н┬и├п,  
+echo ┬к┬о├в┬о├а┬а├п ┬о├в┬д┬е┬л┬е┬н┬а ┬о├в ┬о┬б├й┬е┬й ├б┬е├в┬и тА╣тАЪтАШ ┼Т╦Ж╦ЖтАЩ ┬п┬о├б├а┬е┬д├б├в┬в┬о┬м ┬м┬а├а├и├а├г├в┬и┬з┬а├в┬о├а┬а, ┬л┬и┬б┬о
+echo ┬в┬о┬о┬б├й┬е ┬н┬е ┬п┬о┬д┬к┬л├о├з┬е┬н┬а ┬к тА╣тАЪтАШ ┼Т╦Ж╦ЖтАЩ.
+echo тАШ┬и├в├г┬а├ж┬и├п ┬а┬в├в┬о┬м┬а├в┬и├з┬е├б┬к┬и ┬п┬о┬д├а┬а┬з├г┬м┬е┬в┬а┬е├в, ├з├в┬о ┬в тАЪ┬а├и┬е┬м ┬п┬о┬д├а┬а┬з┬д┬е┬л┬е┬н┬и┬и ┬д┬о┬л┬ж┬е┬н ┬б├л├в├м
+echo ├б┬в┬о┬й IT ┬п┬е├а├б┬о┬н┬а┬л. 
+echo тАЮ┬а┬н┬н┬а├п ┬п├а┬о┬г├а┬а┬м┬м┬а ┬м┬о┬ж┬е├в ├б┬д┬е┬л┬а├в├м ┬п┬о┬п├л├в┬к├г  ┬п├а┬о┬и┬з┬в┬е├б├в┬и ┬н┬е┬о┬б├е┬о┬д┬и┬м├л┬е ┬н┬а├б├в├а┬о┬й┬к┬и 
+echo ├б┬а┬м┬о├б├в┬о├п├в┬е┬л├м┬н┬о, ┬н┬о ┬п├а┬и ├н├в┬о┬м ┬е├б├в├м ├а┬и├б┬к ┬п┬о├в┬е├а├п├в├м├в├м ┬к┬а┬к┬и┬е-┬л┬и┬б┬о ┬о├б┬о┬б┬е┬н┬н├л┬е ┬д┬л├п 
+echo тАЪ┬а├и┬е┬й ├б┬е├в├м ┬н┬а├б├в├а┬о┬й┬к┬и. ┬П┬о├н├в┬о┬м├г ├а┬е┬к┬о┬м┬е┬н┬д├г┬е├в├б├п ┬о┬б├а┬а├в┬и├в├м├б├п ┬к тАЪ┬а├и┬и┬м ├б┬п┬е├ж┬и┬а┬л┬и├б├в┬а┬м, 
+echo ┬е├б┬л┬и ├в┬а┬к┬о┬в├л┬е ┬и┬м┬е├о├в├б├п.
 echo.
-echo Чтобы позволить программе произвести настройки - нажмите любую клавишу.
-echo Чтобы отказаться - просто закройте это окно.
+echo тАФ├в┬о┬б├л ┬п┬о┬з┬в┬о┬л┬и├в├м ┬п├а┬о┬г├а┬а┬м┬м┬е ┬п├а┬о┬и┬з┬в┬е├б├в┬и ┬н┬а├б├в├а┬о┬й┬к┬и - ┬н┬а┬ж┬м┬и├в┬е ┬л├о┬б├г├о ┬к┬л┬а┬в┬и├и├г.
+echo тАФ├в┬о┬б├л ┬о├в┬к┬а┬з┬а├в├м├б├п - ┬п├а┬о├б├в┬о ┬з┬а┬к├а┬о┬й├в┬е ├н├в┬о ┬о┬к┬н┬о.
 echo.
  
 pause > nul
@@ -170,14 +170,14 @@ echo %MakeSettings%
 %net_str2% %ifname% %a3%=195.245.205.5 index=2 > nul
 
 :m3
-rem ------- ═рёЄЁющър яЁюъёш, wsus, ш тЁхьхэш
+rem ------- ├Н├а├▒├▓├░├о├й├к├а ├п├░├о├к├▒├и, wsus, ├и ├в├░├е├м├е├н├и
 
-rem		─юсртыхэшх т Search List
-rem echo Установка DNS-суффикса ...
+rem		├Д├о├б├а├в├л├е├н├и├е ├в Search List
+rem echo тАЬ├б├в┬а┬н┬о┬в┬к┬а DNS-├б├г├д├д┬и┬к├б┬а ...
 REG ADD HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters /v SearchList /t REG_SZ /d free.miit /f 1>nul 2>nul
 
-rem 		╙ёЄрэютър └тЄюяЁюъёш
-rem echo Установка поиска PROXY-сервера ...
+rem 		├У├▒├▓├а├н├о├в├к├а ├А├в├▓├о├п├░├о├к├▒├и
+rem echo тАЬ├б├в┬а┬н┬о┬в┬к┬а ┬п┬о┬и├б┬к┬а PROXY-├б┬е├а┬в┬е├а┬а ...
 REG DELETE "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings" /v AutoConfigURL /f  1>nul 2>nul
 REG ADD "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings" /v ProxyEnable /t REG_DWORD /d 0x0 /f 1>nul 2>nul
 REG DELETE "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings" /v ProxyServer /f 1>nul 2>nul
@@ -186,22 +186,22 @@ REG ADD "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Connec
 
 
 
-rem 		╟ряєёъ ёыєцс√ "DHCP-ъышхэЄ"
-rem echo Установка автостарта службы "DHCP-клиент" ... 
+rem 		├З├а├п├│├▒├к ├▒├л├│├ж├б├╗ "DHCP-├к├л├и├е├н├▓"
+rem echo тАЬ├б├в┬а┬н┬о┬в┬к┬а ┬а┬в├в┬о├б├в┬а├а├в┬а ├б┬л├г┬ж┬б├л "DHCP-┬к┬л┬и┬е┬н├в" ... 
 REG ADD HKLM\SYSTEM\CurrentControlSet\Services\Dhcp /v Start /t REG_DWORD /d 0x2 /f 1>nul 2>nul
 
 rem 		Disable Autorun
-rem echo Отключение автозапуска на всех носителях ...
+rem echo ┼╜├в┬к┬л├о├з┬е┬н┬и┬е ┬а┬в├в┬о┬з┬а┬п├г├б┬к┬а ┬н┬а ┬в├б┬е├е ┬н┬о├б┬и├в┬е┬л├п├е ...
 REG ADD HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer /v NoDriveTypeAutoRun /t REG_DWORD /d 0xff /f 1>nul 2>nul
 REG ADD HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer /v NoDriveTypeAutoRun /t REG_DWORD /d 0xff /f 1>nul 2>nul
 
 rem 		Disable IPv6
-rem echo Отключение IPv6 ...
+rem echo ┼╜├в┬к┬л├о├з┬е┬н┬и┬е IPv6 ...
 REG ADD HKLM\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters /v DisabledComponents /t REG_DWORD /d 0xffffffff /f 1>nul 2>nul
 
 
 rem 		WSUS settings
-rem echo Установки "Центра обновлений Windows" ...
+rem echo тАЬ├б├в┬а┬н┬о┬в┬к┬и "тАУ┬е┬н├в├а┬а ┬о┬б┬н┬о┬в┬л┬е┬н┬и┬й Windows" ...
 REG ADD HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate /v WUServer /t REG_SZ /d http:^/^/germes:8530 /f 1>nul 2>nul
 REG ADD HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate /v WUStatusServer /t REG_SZ /d http:^/^/germes:8530 /f 1>nul 2>nul
 REG ADD HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU /v UseWUServer /t REG_DWORD /d 0x1 /f 1>nul 2>nul
@@ -213,12 +213,12 @@ REG ADD HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU /v ScheduledIn
 REG ADD HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU /v ScheduledInstallTime /t REG_DWORD /d 0x10 /f 1>nul 2>nul
 REG ADD HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU /v NoAutoRebootWithLoggedOnUsers /t REG_DWORD /d 0x1 /f 1>nul 2>nul
 
-rem 		╙ёЄрэютър ╤шэїЁюэшчрЎшш тЁхьхэш
-rem echo Установки синхронизации времени ...
+rem 		├У├▒├▓├а├н├о├в├к├а ├С├и├н├╡├░├о├н├и├з├а├╢├и├и ├в├░├е├м├е├н├и
+rem echo тАЬ├б├в┬а┬н┬о┬в┬к┬и ├б┬и┬н├е├а┬о┬н┬и┬з┬а├ж┬и┬и ┬в├а┬е┬м┬е┬н┬и ...
 w32tm /config /manualpeerlist:femida /syncfromflags:MANUAL /update 1>nul 2>nul
 
 echo.
-echo Настройка произведена ...
+echo ┬Н┬а├б├в├а┬о┬й┬к┬а ┬п├а┬о┬и┬з┬в┬е┬д┬е┬н┬а ...
 :quit
 echo.
 echo.
